@@ -55,10 +55,22 @@ end
 -- map buffer local keybindings when the language server attaches
 -- local servers = { 'pyright', 'rls', 'cmake', }
 -- local servers = { 'pylsp', 'pyright', 'rls', 'cmake', }
-local servers = { 'pylsp', 'pyright', 'cmake', }
+local servers = { 'pylsp', 'pyright', 'cmake' }
 for _, lsp in pairs(servers) do
   require('lspconfig')[lsp].setup {
     on_attach = on_attach,
   }
 end
 
+require('lspconfig')['lua_ls'].setup {
+    settings = {
+        Lua = {
+            diagnostics = {
+                globals = {'vim'}
+            },
+            telemetry = {
+                enable = false,
+            }
+        }
+    }
+}
